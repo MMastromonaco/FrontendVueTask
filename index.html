@@ -10,6 +10,12 @@
     <title>Vue Project Paul & Martin</title>
 </head>
 <body>
-    
+    <div id="bankApp">
+        <h1>Carter's <em>"Cash is king"</em> Bank</h1>
+        <button type="button" @click="showBalance">Account balance</button>
+        <button type="button" @click="deposit">Make a deposit</button>
+        <button type="button" @click="withdraw">Make a withdraw</button>
+        <button type="button" @click="history">Transaction history</button>
+    </div>
 </body>
 </html>
