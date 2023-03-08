@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="utf-8">
+    <title>Expenses Tracker</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="main.js" defer></script>
-    <title>Vue Project Paul & Martin</title>
-</head>
-<body>
-    <div id="bankApp">
-        <h1>Carter's <em>"Cash is king"</em> Bank</h1>
-        <button type="button" @click="showBalance">Account balance</button>
-        <button type="button" @click="deposit">Make a deposit</button>
-        <button type="button" @click="withdraw">Make a withdraw</button>
-        <button type="button" @click="history">Transaction history</button>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Expenses Tracker</h1>
+      <form v-on:submit.prevent="addExpense">
+        <label for="expenseAmount">Amount:</label>
+        <input type="number" id="expenseAmount" v-model="expenseAmount">
+        <label for="expenseCategory">Category:</label>
+        <select id="expenseCategory" v-model="expenseCategory">
+          <option value="">Select a category</option>
+          <option value="salary">Salary</option>
+          <option value="food">Food</option>
+          <option value="transportation">Transportation</option>
+          <option value="entertainment">Entertainment</option>
+          <option value="housing">Housing</option>
+          <option value="miscellaneous">Miscellaneous</option>
+          <option value="savings">Savings</option>
+
+        </select>
+        <button type="submit">Add</button>
+      </form>
+      <ul>
+        <li v-for="expense in expenses" :key="expense.id">
+          {{ expense.amount }} ({{ expense.category }})
+        </li>
+      </ul>
+      <h2>Total Amount: {{ totalAmount }}</h2>
+      <h2>Expenses per Category:</h2>
+      <ul>
+        <li v-for="(amount, category) in expensesByCategory" :key="category">
+          {{ category }}: {{ amount }}
+        </li>
+      </ul>
     </div>
-</body>
+  </body>
 </html>
