@@ -3,11 +3,11 @@ Vue.createApp({
       return {
         expenses: [],
         nextId: 1,
-        expenseAmount: null,
         expenseCategory: null,
         salary: null,
         dateToday: new Date().toISOString().substr(0,10),
         selectedDay: null,
+        sumString:"",
       }
     },
     computed: {
@@ -47,16 +47,19 @@ Vue.createApp({
       }
     },
     methods: {
+      addNumber(number) {
+        this.sumString += number
+      },
       addExpense() {
-        if (!this.expenseAmount || !this.expenseCategory) {
+        if (!this.sumString || !this.expenseCategory) {
           return
         }
         const expense = {
           id: this.nextId++,
-          amount: Number(this.expenseAmount),
+          amount: Number(this.sumString),
           category: this.expenseCategory
         }
-        this.expenseAmount = null
+        this.sumString = ""
         this.expenseCategory = null
         if (this.salary !== null) {
           this.salary -= expense.amount
