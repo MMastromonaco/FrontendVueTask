@@ -12,7 +12,7 @@
     <div id="app">
       <h1>Expenses Tracker</h1>
       <div class="Input">
-        <div class="test">
+        <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount" ></label>
           <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
           <input type="text"pattern="^[0-9,.]*$" v-model="sumString">
@@ -25,10 +25,8 @@
           <button id="button-7" type="button" @click="addNumber(7)">7</button>
           <button id="button-8" type="button" @click="addNumber(8)">8</button>
           <button id="button-9" type="button" @click="addNumber(9)">9</button>
-          <button id="button-10" type="button" @click="addNumber(',')">,</button>
+          <button id="button-10" type="button" @click="addNumber('.')">.</button>
           <button id="button-11" type="button">❌</button>
-        </div>
-        <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount">Amount:</label>
           <label for="expenseCategory">Category:</label>
           <select id="expenseCategory" v-model="expenseCategory">
