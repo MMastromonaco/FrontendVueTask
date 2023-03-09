@@ -5,26 +5,45 @@
     <title>Expenses Tracker</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <style></style>
   </head>
   <body>
     <div id="app">
       <h1>Expenses Tracker</h1>
-      <form v-on:submit.prevent="addExpense">
-        <label for="expenseAmount">Amount:</label>
-        <input type="number" min="0" id="expenseAmount" v-model="expenseAmount">
-        <label for="expenseCategory">Category:</label>
-        <select id="expenseCategory" v-model="expenseCategory">
-          <option value="">Select a category</option>
-          <option value="salary">Salary</option>
-          <option value="food">Food</option>
-          <option value="transportation">Transportation</option>
-          <option value="entertainment">Entertainment</option>
-          <option value="housing">Housing</option>
-          <option value="miscellaneous">Miscellaneous</option>
-          <option value="savings">Savings</option>
-
-        </select>
-        <button type="submit">Add</button>
+      <div class="Input">
+        <div class="test">
+          <label for="expenseAmount" ></label>
+          <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
+          <input type="text"pattern="^[0-9,.]*$" v-model="sumString">
+          <button id="button-1" type="button" @click="addNumber(1)">1</button>
+          <button id="button-2" type="button" @click="addNumber(2)">2</button>
+          <button id="button-3" type="button" @click="addNumber(3)">3</button>
+          <button id="button-4" type="button" @click="addNumber(4)">4</button>
+          <button id="button-5" type="button" @click="addNumber(5)">5</button>
+          <button id="button-6" type="button" @click="addNumber(6)">6</button>
+          <button id="button-7" type="button" @click="addNumber(7)">7</button>
+          <button id="button-8" type="button" @click="addNumber(8)">8</button>
+          <button id="button-9" type="button" @click="addNumber(9)">9</button>
+          <button id="button-10" type="button" @click="addNumber(',')">,</button>
+          <button id="button-11" type="button">❌</button>
+        </div>
+        <form v-on:submit.prevent="addExpense">
+          <label for="expenseAmount">Amount:</label>
+          <label for="expenseCategory">Category:</label>
+          <select id="expenseCategory" v-model="expenseCategory">
+            <option value="">Select a category</option>
+            <option value="salary">Salary</option>
+            <option value="food">Food</option>
+            <option value="transportation">Transportation</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="housing">Housing</option>
+            <option value="miscellaneous">Miscellaneous</option>
+            <option value="savings">Savings</option>
+            
+          </select>
+          <button type="submit">Add</button>
+        </div>
       </form>
       <ul>
         <li v-for="expense in expenses" :key="expense.id">
