@@ -5,7 +5,9 @@ Vue.createApp({
         nextId: 1,
         expenseAmount: null,
         expenseCategory: null,
-        salary: null
+        salary: null,
+        dateToday: new Date().toISOString().substr(0,10),
+        selectedDay: null,
       }
     },
     computed: {
@@ -35,6 +37,13 @@ Vue.createApp({
           return null
         }
         return this.salary - this.totalAmount
+      },
+      daysToPeycheck(){
+        //Räkna ut dagar ifrån dagen till dagen då användaren sagt är lönedag,
+        
+      },
+      dailyAmount(){
+        //Räkna TotalAmount / dagar kvar till lön.
       }
     },
     methods: {
