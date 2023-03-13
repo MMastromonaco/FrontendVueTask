@@ -39,7 +39,7 @@
           <option value="entertainment">Entertainment</option>
           <option value="housing">Housing</option>
           <option value="miscellaneous">Miscellaneous</option>
-          <option value="savings">Savings</option>
+          <option value="stocks">Stocks</option>
 
         </select>
         <button type="submit">Add</button>
@@ -57,18 +57,7 @@
         {{ category }}: {{ amount }}
       </li>
     </ul>
-    <h2>Days left to payday:</h2>
-    <ul>
-      <li v-for="(daysLeft, index) in daysLeft" :key="Payday">
-        {{ daysLeft }}
-      </li>
-    </ul>
-    <h2>Days left in this month:</h2>
-    <ul>
-      <li v-for="daysLeftInMonth" :key="dayCounter">
-        {{ daysLeftInMonth() }}
-      </li>
-    </ul>
+    <h2>Days left to payday: {{ daysLeftToPayday(date) }}</h2>
     <h2>Spending amount per day:</h2>
     <div>
       <label for="date-input">Select a date:</label>
