@@ -39,17 +39,6 @@ Vue.createApp({
         }
         return this.salary - this.totalAmount
       },
-      daysLeft(){
-        const today = new Date();
-        const lastDayOfMonth = new Date(
-          today.getFullYear(),
-          today.getMonth() + 1,
-          0
-        );
-        const targetDay = this.date.getDate();
-        const daysLeft = targetDay - today.getDate();
-        return daysLeft > 0 ? daysLeft : daysLeft + lastDayOfMonth.getDate();
-      },
       dailyAmount(){
         //Räkna TotalAmount / dagar kvar till lön.
       }
@@ -76,16 +65,14 @@ Vue.createApp({
       },
       daysLeftToPayday(date) {
         const today = new Date();
-        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const lastDayOfMonth = new Date(
+          today.getFullYear(),
+          today.getMonth() + 1,
+          0
+        );
         const targetDay = date.getDate();
         const daysLeft = targetDay - today.getDate();
         return daysLeft > 0 ? daysLeft : daysLeft + lastDayOfMonth.getDate();
-      },
-      daysLeftInMonth() {
-        const today = new Date();
-        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        const daysLeft = lastDayOfMonth.getDate() - today.getDate();
-        return daysLeft;
       }
     }
   }).mount('#app')
