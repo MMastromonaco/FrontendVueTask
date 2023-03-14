@@ -40,7 +40,7 @@ Vue.createApp({
         return this.salary - this.totalAmount
       },
       dailyAmount(){
-        //Räkna TotalAmount / dagar kvar till lön.
+        
       }
     },
     methods: {
