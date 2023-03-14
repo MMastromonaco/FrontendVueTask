@@ -43,26 +43,33 @@
 
         </select>
         <button type="submit">Add</button>
+      </form>
     </div>
-    </form>
-    <ul>
-      <li v-for="expense in expenses" :key="expense.id">
+    <div class="calender">
+      <label for="date-input">Select a date:</label>
+      <input type="date" id="date-input" v-model="dateToday">
+    </div>
+    <div class="transactions">
+      <p v-for="expense in expenses" :key="expense.id">
         {{ expense.amount }} ({{ expense.category }})
-      </li>
-    </ul>
-    <h2>Total amount: {{ totalAmount }}</h2>
-    <h2>Expenses per Category:</h2>
+      </p>
+      <p>
+        Total amount: {{ totalAmount }}
+      </p>
+      <h2>Expenses per Category:</h2>
     <ul>
       <li v-for="(amount, category) in expensesByCategory" :key="category">
         {{ category }}: {{ amount }}
       </li>
     </ul>
-    <h2>Days left to payday: {{ daysLeftToPayday(date) }}</h2>
-    <h2>Spending amount per day:</h2>
-    <div>
-      <label for="date-input">Select a date:</label>
-      <input type="date" id="date-input" v-model="dateToday">
     </div>
+    <div class="information"></div>
+    <p id="daysToPayday">
+      Days left to payday: {{ daysLeftToPayday(date) }}
+    </p>
+    <p id="spendingAmount">
+      Spending amount per day:
+    </p>
   </div>
 </body>
 
