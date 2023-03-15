@@ -57,7 +57,6 @@ Vue.createApp({
         if (validDate.getMonth() == this.expenseMonth) {
           console.log(expense.date, expense.category, expense.amount)
         }
-
       }
     },
     addExpense() {
