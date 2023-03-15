@@ -22,7 +22,7 @@ Vue.createApp({
                 total -= expense.amount;
               }
             });
-            return total;
+            return total.toFixed(2);
           },
           expensesByCategory() {
             return this.expenses.reduce((result, expense) => {
@@ -46,7 +46,10 @@ Vue.createApp({
     },
     methods: {
       addNumber(number) {
-        this.sumString += number
+        this.sumString += number;
+      },
+      removeNumber(){
+        this.sumString = "";
       },
       addExpense() {
         if (!this.sumString || !this.expenseCategory) {
