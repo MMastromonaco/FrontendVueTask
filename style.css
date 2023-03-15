@@ -1,44 +1,65 @@
+*{
+    text-align: center;
+}
 
-/* .test {
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonLayout button{
+    height: 35px;
+}
+
+.buttonLayout {
     display: grid;
-    grid-template:
-    "a b c d"
-    "e f g h"
-    "i j k o" / 1fr;
-    width: 40px;
-    place-items: center;
+    grid-template: 
+    "a a a"
+    "b c d"
+    "e f g"
+    "h i j"
+    "k l m" / 1fr 1fr 1fr;
+}
+
+#overlay{
+    grid-area: a;
 }
 
 #button-1{
-    grid-area: a;
-}
-#button-2{
     grid-area: b;
 }
-#button-3{
+#button-2{
     grid-area: c;
 }
-#button-4{
+#button-3{
     grid-area: d;
 }
-#button-5{
+#button-4{
     grid-area: e;
 }
-#button-6{
+#button-5{
     grid-area: f;
 }
-#button-7{
+#button-6{
     grid-area: g;
 }
-#button-8{
+#button-7{
     grid-area: h;
 }
-#button-9{
+#button-8{
     grid-area: i;
 }
-#button-10{
+#button-9{
     grid-area: j;
 }
-#button-11{
+#button-10{
     grid-area: k;
-} */
+    font-size: 20px
+}
+#button-0{
+    grid-area: l;
+}
+#button-11{
+    grid-area: m;
+}

@@ -22,7 +22,7 @@ Vue.createApp({
           total -= expense.amount;
         }
       });
-      return total;
+      return total.toFixed(2);
     },
     expensesByCategory() {
       return this.expenses.reduce((result, expense) => {
@@ -55,6 +55,7 @@ Vue.createApp({
         if (validDate.getMonth() == this.expenseMonth) {
           console.log(expense.date, expense.category, expense.sumString)
         }
+
       }
     },
     addExpense() {
@@ -84,6 +85,12 @@ Vue.createApp({
       const targetDay = date.getDate();
       const daysLeft = targetDay - today.getDate();
       return daysLeft > 0 ? daysLeft : daysLeft + lastDayOfMonth.getDate();
-    }
+    },
+    dailyAmount(date,sumString){
+        const today = new Date();
+        const targetDay = date.getDate();
+        const daysLeft = targetDay - today.getDate();
+        const amount = parseInt(sumString) / daysLeft
+        return amount.toFixed(2);
   }
 }).mount('#app');
