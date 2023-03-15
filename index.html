@@ -27,12 +27,13 @@
         <button id="button-7" type="button" @click="addNumber(7)">7</button>
         <button id="button-8" type="button" @click="addNumber(8)">8</button>
         <button id="button-9" type="button" @click="addNumber(9)">9</button>
+        <button id="button-0" type="button" @click="addNumber(0)">0</button>
         <button id="button-10" type="button" @click="addNumber('.')">.</button>
         <button id="button-11" type="button">❌</button>
         <label for="expenseAmount">Amount:</label>
         <label for="expenseCategory">Category:</label>
         <select id="expenseCategory" v-model="expenseCategory">
-          <option value="">Select a category</option>
+          <option value="">Select a category </option>
           <option value="salary">Salary</option>
           <option value="food">Food</option>
           <option value="transportation">Transportation</option>
@@ -40,8 +41,24 @@
           <option value="housing">Housing</option>
           <option value="miscellaneous">Miscellaneous</option>
           <option value="stocks">Stocks</option>
-
         </select>
+        <div class="monthHistory">
+          <select id="expenseMonth" v-model="expenseMonth">
+            <option value="">Select a month</option>
+            <option value="jan">Jan</option>
+            <option value="feb">Feb</option>
+            <option value="mar">Mar</option>
+            <option value="apr">Apr</option>
+            <option value="may">May</option>
+            <option value="jun">Jun</option>
+            <option value="jul">Jul</option>
+            <option value="aug">Aug</option>
+            <option value="sep">Sep</option>
+            <option value="okt">Okt</option>
+            <option value="nov">Nov</option>
+            <option value="dec">Dec</option>
+          </select>
+        </div>
         <button type="submit">Add</button>
       </form>
     </div>
@@ -56,7 +73,7 @@
       <p>
         Total amount: {{ totalAmount }}
       </p>
-      <h2>Expenses per Category:</h2>
+      <h2>Expenses per Category: ((CirkelDiagram sen))</h2>
     <ul>
       <li v-for="(amount, category) in expensesByCategory" :key="category">
         {{ category }}: {{ amount }}
@@ -68,7 +85,7 @@
       Days left to payday: {{ daysLeftToPayday(date) }}
     </p>
     <p id="spendingAmount">
-      Spending amount per day:
+      Spending amount per day: {{ dailyAmount(date, totalAmount) }}
     </p>
   </div>
 </body>
