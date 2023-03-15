@@ -9,7 +9,8 @@ Vue.createApp({
       selectedDay: null,
       sumString: "",
       date: new Date('2023-03-25'),
-      expenseMonth: ""
+      expenseMonth: "",
+      amount: Number(this.sumString)
     }
   },
   computed: {
@@ -26,34 +27,35 @@ Vue.createApp({
     },
     expensesByCategory() {
       return this.expenses.reduce((result, expense) => {
-        const category = expense.category
-        if (!result[category]) {
-          result[category] = 0
+        const category = expense.category;
+        if (category !== 'salary') {
+          if (!result[category]) {
+            result[category] = 0;
+          }
+          result[category] += expense.amount;
         }
-        result[category] += expense.amount
-        return result
-      }, {})
+        return result;
+      }, {});
     },
     remainingAmount() {
       if (this.salary === null) {
         return null
       }
       return this.salary - this.totalAmount
-    },
-    dailyAmount() {
-
     }
   },
   methods: {
     addNumber(number) {
       this.sumString += number
     },
+    removeNumber(){
+      this.sumString = "";
+    },
     historyDisplay() {
       for (let expense of this.expenses) {
         let validDate = new Date(expense.date);
-        let test = validDate.getMonth();
         if (validDate.getMonth() == this.expenseMonth) {
-          console.log(expense.date, expense.category, expense.sumString)
+          console.log(expense.date, expense.category, expense.amount)
         }
 
       }
@@ -86,11 +88,12 @@ Vue.createApp({
       const daysLeft = targetDay - today.getDate();
       return daysLeft > 0 ? daysLeft : daysLeft + lastDayOfMonth.getDate();
     },
-    dailyAmount(date,sumString){
-        const today = new Date();
-        const targetDay = date.getDate();
-        const daysLeft = targetDay - today.getDate();
-        const amount = parseInt(sumString) / daysLeft
-        return amount.toFixed(2);
+    dailyAmount(date, sumString) {
+      const today = new Date();
+      const targetDay = date.getDate();
+      const daysLeft = targetDay - today.getDate();
+      const amount = parseInt(sumString) / daysLeft
+      return amount.toFixed(2);
+    }
   }
 }).mount('#app');
