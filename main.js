@@ -13,12 +13,14 @@ Vue.createApp({
       amount: Number(this.sumString),
       expanded: false,
       isInActive: false,
-      data: [
-        { label: 'Food', value: 300, color: '#FF6384' },
-        { label: 'Transportation', value: 800, color: '#36A2EB' },
-        { label: 'Entertainment', value: 200, color: '#FFCE56' },
-        { label: 'Housing', value: 150, color: '#4BC0C0' },
-      ]
+      categories: [
+        'food',
+        'transportation',
+        'entertainment',
+        'housing',
+        'miscellaneous',
+        'stocks'
+      ],
     }
   },
   computed: {
@@ -41,6 +43,8 @@ Vue.createApp({
             result[category] = 0;
           }
           result[category] += expense.amount;
+          this.drawPieChart();
+
         }
         return result;
       },
@@ -84,7 +88,6 @@ Vue.createApp({
         this.salary -= expense.amount
       }
       this.expenses.push(expense)
-      this.drawSweden();
     },
     daysLeftToPayday(date) {
       const today = new Date();
@@ -112,20 +115,48 @@ Vue.createApp({
       this.expanded = false;
       this.toggleInActive();
     },
-    toggleInActive(){
+    toggleInActive() {
       this.isInActive = !this.isInActive;
     },
-    drawSweden() {
-      const canvas = document.querySelector('canvas');
-      this.$refs.canvas.getContext("2d")
-      const w = canvas.width = 160;
-      const h = canvas.height = 100;
-      
-      this.$refs.canvas.getContext("2d").fillStyle = 'blue';
-      this.$refs.canvas.getContext("2d").fillRect(0, 0, w, h);
-      this.$refs.canvas.getContext("2d").fillStyle = 'yellow';
-      this.$refs.canvas.getContext("2d").fillRect(0, h * 0.4, w, h * 0.2);
-      this.$refs.canvas.getContext("2d").fillRect(w * (5 / 16), 0, w * (2 / 16), h);
+    drawPieChart() {
+      const canvas = this.$refs.canvas;
+      const context = canvas.getContext('2d');
+  
+      context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+  
+      const data = this.categories.map(category => {
+        return this.expenses.filter(expense => expense.category === category)
+          .reduce((total, expense) => total + expense.amount, 0);
+      });
+  
+      const total = data.reduce((a, b) => a + b, 0);
+      const colors = this.generateColors(this.categories.length);
+  
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(canvas.width, canvas.height) / 2;
+      let currentAngle = 0;
+  
+      data.forEach((value, index) => {
+        const sliceAngle = (2 * Math.PI * value) / total;
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+        context.fillStyle = colors[index];
+        context.fill();
+        currentAngle += sliceAngle;
+      });
+    },
+    generateColors(numColors) {
+      const colors = [];
+      for (let i = 0; i < numColors; i++) {
+        const hue = i / numColors;
+        const saturation = 0.8;
+        const lightness = 0.5;
+        const color = `hsl(${hue * 360}, ${saturation * 100}%, ${lightness * 100}%)`;
+        colors.push(color);
+      }
+      return colors;
     },
   }
 }).mount('#app');
