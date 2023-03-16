@@ -12,8 +12,8 @@
 
 <body>
   <div id="app">
-    <header>
-      <h1>Expenses Tracker</h1>
+    <div class="expanding-div" :class="{ 'expanded': expanded }">
+      <button class="close-button" @click="closeDiv">X</button>
       <h2>Historical display of transactions</h2>
       <div class="monthHistory">
         <select id="expenseMonth" v-model="expenseMonth">
@@ -33,13 +33,21 @@
         </select>
         <button @click="historyDisplay()" type="button">Display</button>
       </div>
+    </div>
+    <button class="expand-button" @click="expandDiv">Expand</button>
+    
+    <header>
+      <h1>Expenses Tracker</h1>
+      
       <div class="history">
       </div>
+      
     </header>
     <div class="Input">
       <form v-on:submit.prevent="addExpense">
         <label for="expenseAmount"></label>
         <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
+        <label for="expenseAmount">Amount:</label>
         <div class="buttonLayout">
           <input id="overlay" type="text" pattern="^[0-9,.]*$" v-model="sumString">
           <button id="button-1" type="button" @click="addNumber(1)">1</button>
@@ -55,7 +63,6 @@
           <button id="button-10" type="button" @click="addNumber('.')">.</button>
           <button id="button-11" type="button" @click="removeNumber()">❌</button>
         </div>
-        <label for="expenseAmount">Amount:</label>
         <label for="expenseCategory">Category:</label>
         <select id="expenseCategory" v-model="expenseCategory">
           <option value="">Select a category </option>
@@ -83,6 +90,11 @@
         Total amount: {{ totalAmount }}
       </p>
       <h2>Expenses per Category: ((CirkelDiagram sen))</h2>
+      <canvas>
+        måla skiten då!
+        {{drawPieChart}}
+
+      </canvas>
       <ul>
         <li v-for="(amount, category) in expensesByCategory" :key="category">
           {{ category }}: {{ amount }}
