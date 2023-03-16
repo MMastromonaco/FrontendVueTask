@@ -12,9 +12,11 @@
 
 <body>
   <div id="app">
-    <header>
+    
+    <header :class="{ inActive: isInActive}">
       <h1>Expenses Tracker</h1>
     </header>
+
     <aside>
       <div class="expanding-div" :class="{ 'expanded': expanded }">
         <button class="close-button" @click="closeDiv">X</button>
@@ -42,19 +44,19 @@
       </div>
     </aside>
     <main :class="{ inActive: isInActive}">
-    <button class="expand-button" @click="expandDiv">Expand</button>
+    <button class="expand-button" @click="expandDiv">History</button>
 
       <div class="Input">
         <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount"></label>
           <div class="calender">
-      <label for="date-input">Select a date:</label>
+      <label for="date-input">Select a date for the transaction:</label>
       <input type="date" id="date-input" v-model="dateToday">
     </div>
           <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
           <label for="expenseAmount">Amount:</label>
           <div class="buttonLayout">
-            <input id="overlay" type="text" pattern="^[0-9,.]*$" v-model="sumString">
+            <input id="overlay" type="text" pattern="^[0-9]+([,.][0-9]+)?$" v-model="sumString">
             <button id="button-1" type="button" @click="addNumber(1)">1</button>
             <button id="button-2" type="button" @click="addNumber(2)">2</button>
             <button id="button-3" type="button" @click="addNumber(3)">3</button>
@@ -83,15 +85,18 @@
         <button type="submit">Add</button>
       </form>
     </div>
-    
     <div class="transactions">
+
+      <h2>Transactions</h2>
+      <p v-for="expense in expenses" :key="expense.id">
+        {{ expense.amount }} ({{ expense.category }})
+      </p>
+
       <p>
         Total amount: {{ totalAmount }}
       </p>
       <h2>Expenses per Category: ((CirkelDiagram sen))</h2>
-      <canvas>
-        måla skiten då!
-        {{drawPieChart}}
+      <canvas ref="canvas">
         
       </canvas>
       <ul>
@@ -110,7 +115,6 @@
   </div>
 </main>
 <footer>
-
 </footer>
 </body>
 

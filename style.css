@@ -85,7 +85,7 @@ header{
 }
 
 .expanded {
-  width: 35%;
+  width: 50%;
   height: 100%;
   overflow: auto;
 }
@@ -101,6 +101,6 @@ header{
 
 .inActive {
    pointer-events: none;
-   opacity: 20%;
-   transform: translateX(-50%);
+   opacity: 10%;
+   transform: translateX(-70%);
 }
