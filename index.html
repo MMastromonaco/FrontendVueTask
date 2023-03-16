@@ -37,7 +37,9 @@
             <option value="10">Nov</option>
             <option value="11">Dec</option>
           </select>
-          <button @click="historyDisplay()" type="button">Display</button>
+          <p v-for="expense in filterExpenses" :key="expense.id">
+            {{ expense.amount }} ({{ expense.category }}) {{ expense.date }}
+          </p>
         </div>
       </div>
     </aside>
@@ -84,10 +86,12 @@
       </form>
     </div>
     <div class="transactions">
+
       <h2>Transactions</h2>
       <p v-for="expense in expenses" :key="expense.id">
         {{ expense.amount }} ({{ expense.category }})
       </p>
+
       <p>
         Total amount: {{ totalAmount }}
       </p>

@@ -43,13 +43,22 @@ Vue.createApp({
           result[category] += expense.amount;
         }
         return result;
-      }, {});
+      },
+        {});
     },
     remainingAmount() {
       if (this.salary === null) {
         return null
       }
       return this.salary - this.totalAmount
+    },
+    filterExpenses() {
+      // return this.expenses.filter(e => e.amount > 0);
+      const selectedMonth = this.expenseMonth;
+      return this.expenses.filter(e => {
+        const expenseDate = new Date(e.date);
+        return expenseDate.getMonth() == selectedMonth;
+      });
     }
   },
   methods: {
@@ -58,15 +67,6 @@ Vue.createApp({
     },
     removeNumber() {
       this.sumString = "";
-    },
-    historyDisplay() {
-      for (let expense of this.expenses) {
-        let validDate = new Date(expense.date);
-        if (validDate.getMonth() == this.expenseMonth) {
-          console.log(expense.date, expense.category, expense.amount)
-        }
-
-      }
     },
     addExpense() {
       if (!this.sumString || !this.expenseCategory) {
