@@ -31,10 +31,10 @@
           <option value="10">Nov</option>
           <option value="11">Dec</option>
         </select>
-        <div class="display-history">
-          <button @click="historyDisplay()" type="button">Display</button>
-        </div>
       </div>
+      <p v-for="expense in filterExpenses" :key="expense.id">
+        {{ expense.amount }} ({{ expense.category }}) {{ expense.date }}
+      </p>
     </div>
     <button class="expand-button" @click="expandDiv">Expand</button>
     
@@ -85,9 +85,6 @@
       <input type="date" id="date-input" v-model="dateToday">
     </div>
     <div class="transactions">
-      <p v-for="expense in expenses" :key="expense.id">
-        {{ expense.amount }} ({{ expense.category }})
-      </p>
       <p>
         Total amount: {{ totalAmount }}
       </p>
