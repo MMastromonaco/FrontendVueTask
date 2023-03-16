@@ -12,11 +12,8 @@
 
 <body>
   <div id="app">
-    
-    
     <header>
       <h1>Expenses Tracker</h1>
-     
     </header>
     <aside>
       <div class="expanding-div" :class="{ 'expanded': expanded }">
@@ -38,7 +35,9 @@
             <option value="10">Nov</option>
             <option value="11">Dec</option>
           </select>
-          <button @click="historyDisplay()" type="button">Display</button>
+          <p v-for="expense in filterExpenses" :key="expense.id">
+            {{ expense.amount }} ({{ expense.category }}) {{ expense.date }}
+          </p>
         </div>
       </div>
     </aside>
@@ -86,9 +85,6 @@
     </div>
     
     <div class="transactions">
-      <p v-for="expense in expenses" :key="expense.id">
-        {{ expense.amount }} ({{ expense.category }})
-      </p>
       <p>
         Total amount: {{ totalAmount }}
       </p>
