@@ -84,6 +84,7 @@ Vue.createApp({
         this.salary -= expense.amount
       }
       this.expenses.push(expense)
+      this.drawSweden();
     },
     daysLeftToPayday(date) {
       const today = new Date();
@@ -103,49 +104,6 @@ Vue.createApp({
       const amount = parseInt(sumString) / daysLeft
       return amount.toFixed(2);
     },
-    drawPieChart() {
-      const canvas = createCanvas();
-      const c = canvas.getContext('2d');
-      const w = canvas.width = 500;
-      const h = canvas.height = 500;
-      const centerX = w / 2;
-      const centerY = h / 2;
-      const radius = Math.min(w, h / 2 - 50);
-
-      const total = data.reduce((sum, item) => sum + item.value, 0);
-
-      let startAngel = 0;
-      let endAngel = 0;
-      for (let i = 0; i < data.length; i++) {
-        const slice = data[i];
-        endAngel = startAngel + (slice.value / total) * 2 * Math.PI;
-
-        c.beginPath();
-        c.moveTo(centerX, centerY);
-        c.arc(centerX, centerY, radius, startAngel, endAngel);
-        c.fillStyle = slice.color;
-        c.fill();
-
-        startAngel = endAngel;
-      }
-
-      c.font = '16px sans-serif';
-      let x = 50;
-      let y = 50;
-      for (let i = 0; i < data.length; i++) {
-        const slice = data[i];
-        c.fillStyle = slice.color;
-        c.fillRect(x, y, 20, 20);
-        c.fillStyle = 'black';
-        c.fillText(`${slice.label}: ${slice.value}`, x + 30, y + 16);
-        y += 30;
-      }
-    },
-    createCanvas() {
-      const canvas = document.createElement('canvas');
-      document.body.append(canvas);
-      return canvas;
-    },
     expandDiv() {
       this.expanded = true;
       this.toggleInActive();
@@ -156,6 +114,18 @@ Vue.createApp({
     },
     toggleInActive(){
       this.isInActive = !this.isInActive;
+    },
+    drawSweden() {
+      const canvas = document.querySelector('canvas');
+      this.$refs.canvas.getContext("2d")
+      const w = canvas.width = 160;
+      const h = canvas.height = 100;
+      
+      this.$refs.canvas.getContext("2d").fillStyle = 'blue';
+      this.$refs.canvas.getContext("2d").fillRect(0, 0, w, h);
+      this.$refs.canvas.getContext("2d").fillStyle = 'yellow';
+      this.$refs.canvas.getContext("2d").fillRect(0, h * 0.4, w, h * 0.2);
+      this.$refs.canvas.getContext("2d").fillRect(w * (5 / 16), 0, w * (2 / 16), h);
     },
   }
 }).mount('#app');
