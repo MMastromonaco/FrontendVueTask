@@ -12,6 +12,7 @@ Vue.createApp({
       expenseMonth: "",
       amount: Number(this.sumString),
       expanded: false,
+      isInActive: false,
       data: [
         { label: 'Food', value: 300, color: '#FF6384' },
         { label: 'Transportation', value: 800, color: '#36A2EB' },
@@ -147,9 +148,14 @@ Vue.createApp({
     },
     expandDiv() {
       this.expanded = true;
+      this.toggleInActive();
     },
     closeDiv() {
       this.expanded = false;
+      this.toggleInActive();
+    },
+    toggleInActive(){
+      this.isInActive = !this.isInActive;
     },
   }
 }).mount('#app');
