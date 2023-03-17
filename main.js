@@ -10,6 +10,7 @@ Vue.createApp({
       sumString: "",
       date: new Date('2023-03-25'),
       expenseMonth: "",
+      expenseId:"",
       amount: Number(this.sumString),
       expanded: false,
       isInActive: false,
@@ -63,7 +64,7 @@ Vue.createApp({
         const expenseDate = new Date(e.date);
         return expenseDate.getMonth() == selectedMonth;
       });
-    }
+    },
   },
   methods: {
     addNumber(number) {
@@ -88,6 +89,12 @@ Vue.createApp({
         this.salary -= expense.amount
       }
       this.expenses.push(expense)
+    },
+    revertTransaction(id) {
+      const index = this.expenses && this.expenses.length > 0 ? this.expenses.findIndex(expense => expense.id === id) : -1;
+      if (index !== -1) {
+        this.expenses.splice(index, 1);
+      }
     },
     daysLeftToPayday(date) {
       const today = new Date();
@@ -121,22 +128,22 @@ Vue.createApp({
     drawPieChart() {
       const canvas = this.$refs.canvas;
       const context = canvas.getContext('2d');
-  
+
       context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-  
+
       const data = this.categories.map(category => {
         return this.expenses.filter(expense => expense.category === category)
           .reduce((total, expense) => total + expense.amount, 0);
       });
-  
+
       const total = data.reduce((a, b) => a + b, 0);
       const colors = this.generateColors(this.categories.length);
-  
+
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = Math.min(canvas.width, canvas.height) / 2;
       let currentAngle = 0;
-  
+
       data.forEach((value, index) => {
         const sliceAngle = (2 * Math.PI * value) / total;
         context.beginPath();
@@ -157,6 +164,6 @@ Vue.createApp({
         colors.push(color);
       }
       return colors;
-    },
+    }
   }
 }).mount('#app');

@@ -39,8 +39,14 @@
             <option value="11">Dec</option>
           </select>
           <p v-for="expense in filterExpenses" :key="expense.id">
-            {{ expense.amount }} ({{ expense.category }}) {{ expense.date }}
+           Transaction id: {{expense.id}}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
           </p>
+          <h2>Chose a transaction to revert</h2>
+          <ul>
+            <li v-for="expense in filterExpenses" :key="expense.id">
+              {{ expense.id }} <button @click="revertTransaction(expense.id)">Delete</button>
+            </li>
+          </ul>
         </div>
       </div>
     </aside>
