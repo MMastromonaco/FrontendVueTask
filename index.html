@@ -12,9 +12,10 @@
 
 <body>
   <div id="app">
-    
+
     <header :class="{ inActive: isInActive}">
       <h1>Expenses Tracker</h1>
+      <button class="expand-button" @click="expandDiv">History</button>
     </header>
 
     <aside>
@@ -44,18 +45,22 @@
       </div>
     </aside>
     <main :class="{ inActive: isInActive}">
-    <button class="expand-button" @click="expandDiv">History</button>
 
+      <div class="information">
+        <p id="daysToPayday">Days left to payday: {{ daysLeftToPayday(date) }}</p>
+        <p id="spendingAmount">Spending amount per day: {{ dailyAmount(date, totalAmount) }}</p>
+      </div>
+        <!-- Stor bokstav på Input -->
       <div class="Input">
         <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount"></label>
           <div class="calender">
-      <label for="date-input">Select a date for the transaction:</label>
-      <input type="date" id="date-input" v-model="dateToday">
-    </div>
-          <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
+            <label for="date-input">Select a date for the transaction:</label>
+            <input type="date" id="date-input" v-model="dateToday">
+          </div>
           <label for="expenseAmount">Amount:</label>
           <div class="buttonLayout">
+            <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
             <input id="overlay" type="text" pattern="^[0-9]+([,.][0-9]+)?$" v-model="sumString">
             <button id="button-1" type="button" @click="addNumber(1)">1</button>
             <button id="button-2" type="button" @click="addNumber(2)">2</button>
@@ -72,51 +77,42 @@
           </div>
           <label for="expenseCategory">Category:</label>
           <select id="expenseCategory" v-model="expenseCategory">
-          <option value="">Select a category </option>
-          <option value="salary">Salary</option>
-          <option value="food">Food</option>
-          <option value="transportation">Transportation</option>
-          <option value="entertainment">Entertainment</option>
-          <option value="housing">Housing</option>
-          <option value="miscellaneous">Miscellaneous</option>
-          <option value="stocks">Stocks</option>
-        </select>
+            <option value="">Select a category </option>
+            <option value="salary">Salary</option>
+            <option value="food">Food</option>
+            <option value="transportation">Transportation</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="housing">Housing</option>
+            <option value="miscellaneous">Miscellaneous</option>
+            <option value="stocks">Stocks</option>
+          </select>
 
-        <button type="submit">Add</button>
-      </form>
-    </div>
-    <div class="transactions">
+          <button type="submit">Add</button>
+        </form>
+      </div>
+      <div class="transactions">
 
-      <h2>Transactions</h2>
-      <p v-for="expense in expenses" :key="expense.id">
-        {{ expense.amount }} ({{ expense.category }})
-      </p>
+        <h2>Transactions</h2>
+        <p v-for="expense in expenses" :key="expense.id">
+          {{ expense.amount }} ({{ expense.category }})
+        </p>
 
-      <p>
-        Total amount: {{ totalAmount }}
-      </p>
-      <h2>Expenses per Category: ((CirkelDiagram sen))</h2>
+        <p>
+          Total amount: {{ totalAmount }}
+        </p>
+        <h2>Expenses per Category</h2>
+        <canvas ref="canvas"></canvas>
+        <ul>
+          <li v-for="(amount, category) in expensesByCategory" :key="category">
+            {{ category }}: {{ amount }}
+          </li>
+        </ul>
+      </div>
       
-      <canvas ref="canvas">
-        
-      </canvas>
-      <ul>
-        <li v-for="(amount, category) in expensesByCategory" :key="category">
-          {{ category }}: {{ amount }}
-        </li>
-      </ul>
-    </div>
-    <div class="information"></div>
-    <p id="daysToPayday">
-      Days left to payday: {{ daysLeftToPayday(date) }}
-    </p>
-    <p id="spendingAmount">
-      Spending amount per day: {{ dailyAmount(date, totalAmount) }}
-    </p>
   </div>
-</main>
-<footer>
-</footer>
+  </main>
+  <footer>
+  </footer>
 </body>
 
 </html>
