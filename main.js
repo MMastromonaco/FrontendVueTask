@@ -90,11 +90,12 @@ Vue.createApp({
       }
       this.expenses.push(expense)
     },
-    revertTransaction(id) {
-      const index = this.expenses && this.expenses.length > 0 ? this.expenses.findIndex(expense => expense.id === id) : -1;
+    deleteTransaction(id) {
+      const index = this.expenses.findIndex(expense => expense.id === id);
       if (index !== -1) {
         this.expenses.splice(index, 1);
       }
+      this.drawPieChart();
     },
     daysLeftToPayday(date) {
       const today = new Date();
