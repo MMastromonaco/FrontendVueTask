@@ -39,7 +39,7 @@
             <option value="11">Dec</option>
           </select>
           <p v-for="expense in filterExpenses" :key="expense.id">
-            Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
+            Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
             <button @click="deleteTransaction(expense.id)">Delete</button>
           </p>
         </div>
@@ -48,9 +48,9 @@
     <main :class="{ inActive: isInActive}">
 
       <div class="information">
+        <p id="totalAmount">Total amount: {{ totalAmount }}</p>
         <p id="daysToPayday">Days left to payday: {{ daysLeftToPayday(date) }}</p>
         <p id="spendingAmount">Spending amount per day: {{ dailyAmount(date, totalAmount) }}</p>
-        <p id="totalAmount">Total amount: {{ totalAmount }}</p>
       </div>
         <!-- Stor bokstav på Input -->
       <div class="Input">
@@ -99,12 +99,12 @@
 
         <h2>Transactions</h2>
         <p v-for="expense in expenses" :key="expense.id">
-         {{objectName}}: {{ expense.amount }} Kr ({{ expense.category }})
+         {{expense.name}}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
 
         
         <h2>Expenses per Category</h2>
-        <canvas ref="canvas"></canvas>
+        <canvas id=theCanvas ref="canvas"></canvas>
         <ul>
           <li v-for="(amount, category) in expensesByCategory" :key="category">
             {{ category }}: {{ amount }}
