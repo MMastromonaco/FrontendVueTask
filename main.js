@@ -1,5 +1,6 @@
 Vue.createApp({
-  created(){
+  // Created crashade, mounted funkar, Förklara gärna JAKOB <3.
+  mounted(){
     const savedExpenses = localStorage.getItem('expenses');
     if (savedExpenses) {
       this.expenses = JSON.parse(savedExpenses);
@@ -175,5 +176,6 @@ Vue.createApp({
       });
     },
     
-  }
+    
+  },
 }).mount('#app');
