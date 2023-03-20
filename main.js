@@ -82,7 +82,8 @@ Vue.createApp({
         id: this.nextId++,
         amount: Number(this.sumString),
         category: this.expenseCategory,
-        date: this.dateToday
+        date: this.dateToday,
+        name: this.objectName
       }
       this.sumString = ""
       this.expenseCategory = null
