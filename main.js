@@ -1,4 +1,11 @@
 Vue.createApp({
+  created(){
+    const savedExpenses = localStorage.getItem('expenses');
+    if (savedExpenses) {
+      this.expenses = JSON.parse(savedExpenses);
+      this.nextId = this.expenses[this.expenses.length - 1].id + 1;
+    }
+  },
   data() {
     return {
       expenses: [],
@@ -91,11 +98,13 @@ Vue.createApp({
         this.salary -= expense.amount
       }
       this.expenses.push(expense)
+      localStorage.setItem('expenses', JSON.stringify(this.expenses));
     },
     deleteTransaction(id) {
       const index = this.expenses.findIndex(expense => expense.id === id);
       if (index !== -1) {
         this.expenses.splice(index, 1);
+        localStorage.setItem('expenses', JSON.stringify(this.expenses));
       }
       this.drawPieChart();
     },
