@@ -20,6 +20,13 @@ body {
 header {
     border-bottom: 1px solid black;
     background-color: antiquewhite;
+    
+}
+header .expand-button{
+    position: absolute;
+    top: 0;
+    right: 0;   
+    margin: 10px;
 }
 
 .expanding-div {

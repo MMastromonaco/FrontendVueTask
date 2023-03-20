@@ -6,6 +6,7 @@ Vue.createApp({
       expenseCategory: "",
       salary: null,
       dateToday: new Date().toISOString().substr(0, 10),
+      objectName:"",
       selectedDay: null,
       sumString: "",
       date: new Date('2023-03-25'),
@@ -90,11 +91,12 @@ Vue.createApp({
       }
       this.expenses.push(expense)
     },
-    revertTransaction(id) {
-      const index = this.expenses && this.expenses.length > 0 ? this.expenses.findIndex(expense => expense.id === id) : -1;
+    deleteTransaction(id) {
+      const index = this.expenses.findIndex(expense => expense.id === id);
       if (index !== -1) {
         this.expenses.splice(index, 1);
       }
+      this.drawPieChart();
     },
     daysLeftToPayday(date) {
       const today = new Date();
@@ -128,6 +130,15 @@ Vue.createApp({
     drawPieChart() {
       const canvas = this.$refs.canvas;
       const context = canvas.getContext('2d');
+      const colors = {
+        "food": "#FF0000",
+        "rent": "#0000FF",
+        "transportation": "#FFFF00",
+        "entertainment": "#008000",
+        "housing": "#800080",
+        "miscellaneous": "#008080",
+        "stocks": "#808000"
+      };
 
       context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
 
@@ -137,7 +148,6 @@ Vue.createApp({
       });
 
       const total = data.reduce((a, b) => a + b, 0);
-      const colors = this.generateColors(this.categories.length);
 
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
@@ -149,21 +159,11 @@ Vue.createApp({
         context.beginPath();
         context.moveTo(centerX, centerY);
         context.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
-        context.fillStyle = colors[index];
+        context.fillStyle = colors[this.categories[index]];
         context.fill();
         currentAngle += sliceAngle;
       });
     },
-    generateColors(numColors) {
-      const colors = [];
-      for (let i = 0; i < numColors; i++) {
-        const hue = i / numColors;
-        const saturation = 0.8;
-        const lightness = 0.5;
-        const color = `hsl(${hue * 360}, ${saturation * 100}%, ${lightness * 100}%)`;
-        colors.push(color);
-      }
-      return colors;
-    }
+    
   }
 }).mount('#app');
