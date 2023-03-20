@@ -52,7 +52,6 @@
         <p id="daysToPayday">Days left to payday: {{ daysLeftToPayday(date) }}</p>
         <p id="spendingAmount">Spending amount per day: {{ dailyAmount(date, totalAmount) }}</p>
       </div>
-        <!-- Stor bokstav på Input -->
       <div class="Input">
         <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount"></label>
@@ -102,6 +101,10 @@
          {{expense.name}}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
 
+        <!-- <p v-for="expense in filterExpenses" :key="expense.id">
+            Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
+            <button @click="deleteTransaction(expense.id)">Delete</button>
+          </p> -->
         
         <h2>Expenses per Category</h2>
         <canvas id=theCanvas ref="canvas"></canvas>
