@@ -56,10 +56,13 @@
       <div class="Input">
         <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount"></label>
-          <div class="calender">
+          <div class="inputDateAndType">
             <label for="date-input">Select a date for the transaction:</label>
-            <input type="date" id="date-input" v-model="dateToday">
+            <input type="date" id="date-input" v-model="dateToday"><br>
+            <label for="objectName">Name: </label>
+            <input id="objectName" type="text" v-model="objectName">
           </div>
+          
           <label for="expenseAmount">Amount:</label>
           <div class="buttonLayout">
             <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
@@ -96,7 +99,7 @@
 
         <h2>Transactions</h2>
         <p v-for="expense in expenses" :key="expense.id">
-          {{ expense.amount }} ({{ expense.category }})
+         {{objectName}}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
 
         

@@ -6,6 +6,7 @@ Vue.createApp({
       expenseCategory: "",
       salary: null,
       dateToday: new Date().toISOString().substr(0, 10),
+      objectName:"",
       selectedDay: null,
       sumString: "",
       date: new Date('2023-03-25'),
