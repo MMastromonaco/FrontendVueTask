@@ -29,6 +29,10 @@ header .expand-button{
     margin: 10px;
 }
 
+.removeJakobsButton{
+    display: none;
+}
+
 .expanding-div {
     position: absolute;
     right: 0;
