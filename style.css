@@ -172,47 +172,47 @@ main{
 
 .food {
     background-color:#FF0000 ;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 }
 
 .transportation {
     background-color:#FFFF00 ;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 
 }
 
 .entertainment{
     background-color:#008000 ;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 
 }
 
 .housing{
     background-color: #800080;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 
 }
 
 .miscellaneous{
     background-color:#008080 ;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 
 }
 
 .stocks {
     background-color: #808000;
-    width: 10px;
-    height: 10px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
 
 }
