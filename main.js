@@ -143,6 +143,10 @@ Vue.createApp({
     removeNumber() {
       this.sumString = "";
     },
+    handleButtonClick(month) {
+      this.expandDiv();
+      this.drawAsidePieChart(month);
+    },
     addExpense() {
       if (!this.sumString || !this.expenseCategory) {
         return
@@ -170,6 +174,7 @@ Vue.createApp({
         localStorage.setItem('expenses', JSON.stringify(this.expenses));
       }
       this.drawPieChart();
+
     },
     daysLeftToPayday(date) {
       const today = new Date();
@@ -192,6 +197,7 @@ Vue.createApp({
     expandDiv() {
       this.expanded = true;
       this.toggleInActive();
+      this.drawAsidePieChart();
     },
     closeDiv() {
       this.expanded = false;
@@ -217,6 +223,47 @@ Vue.createApp({
       const currentMonthExpenses = this.expenses.filter(expense => {
         const expenseDate = new Date(expense.date);
         return expenseDate.getMonth() === new Date().getMonth();
+      });
+    
+      const data = this.categories.map(category => {
+        return currentMonthExpenses.filter(expense => expense.category === category)
+          .reduce((total, expense) => total + expense.amount, 0);
+      });
+    
+      const total = data.reduce((a, b) => a + b, 0);
+    
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+      const radius = Math.min(canvas.width, canvas.height) / 2;
+      let currentAngle = 0;
+    
+      data.forEach((value, index) => {
+        const sliceAngle = (2 * Math.PI * value) / total;
+        context.beginPath();
+        context.moveTo(centerX, centerY);
+        context.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+        context.fillStyle = colors[this.categories[index]];
+        context.fill();
+        currentAngle += sliceAngle;
+      });
+    },
+    drawAsidePieChart(month) {
+      const canvas = this.$refs.asideCanvas;
+      const context = canvas.getContext('2d');
+      const colors = {
+        "food": "#FF0000",
+        "transportation": "#FFFF00",
+        "entertainment": "#008000",
+        "housing": "#800080",
+        "miscellaneous": "#008080",
+        "stocks": "#808000"
+      };
+    
+      context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
+    
+      const currentMonthExpenses = this.expenses.filter(expense => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate.getMonth() === parseInt(month);
       });
     
       const data = this.categories.map(category => {
