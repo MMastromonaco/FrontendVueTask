@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <title>Expenses Tracker</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="main.js" defer></script>
@@ -45,7 +47,7 @@
         </div>
       </div>
     </aside>
-    <button>Jakobs Knapp</button>
+    <button :class="{removeJakobsButton}" id="jakobsKnapp" type="button" @click="jakobsKnapp()">Jakobs Knapp</button>
     <main :class="{ inActive: isInActive}">
 
       <div class="information">
@@ -103,14 +105,21 @@
          {{expense.name}}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
         <h2>Expenses per Category</h2>
-        <canvas id=theCanvas ref="canvas"></canvas>
         <ul>
           <li v-for="(amount, category) in expensesByCategory" :key="category">
             {{ category }}: {{ amount }} <div :class="category"> </div>
           </li>
         </ul>
+        <canvas id=theCanvas ref="canvas"></canvas>
+        <h2>Category Percentages</h2>
+        <ul>
+          <li v-for="(percentage, category) in categoryPercentages" :key="category">
+            {{ category }} : {{ percentage.toFixed(2) }} %
+          </li>
+        </ul>
       </div>
       
+
   </div>
   </main>
   <footer>

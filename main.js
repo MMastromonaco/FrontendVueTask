@@ -23,6 +23,7 @@ Vue.createApp({
       amount: Number(this.sumString),
       expanded: false,
       isInActive: false,
+      removeJakobsButton: false,
       categories: [
         'food',
         'transportation',
@@ -61,6 +62,24 @@ Vue.createApp({
         return result;
       },
         {});
+    },
+    categoryPercentages() {
+      let totalAmount = this.expenses.filter(expense => expense.category != 'salary').reduce((total, expense) => {
+        return total + expense.amount;
+      }, 0);
+
+      let categoryAmounts = this.expenses.filter(expense => expense.category != 'salary').reduce((amounts, expense) => {
+        const { category, amount } = expense;
+        amounts[category] = (amounts[category] || 0) + amount;
+        return amounts;
+      }, {});
+
+      let percentages = {};
+      for (let category in categoryAmounts) {
+        percentages[category] = (categoryAmounts[category] / totalAmount) * 100;
+      }
+
+      return percentages;
     },
     remainingAmount() {
       if (this.salary === null) {
@@ -175,6 +194,116 @@ Vue.createApp({
         context.fill();
         currentAngle += sliceAngle;
       });
-    },    
+    },
+    jakobsKnapp(){
+      const x1 = {
+        id: 1,
+        amount: 1000,
+        category: "salary",
+        date: this.dateToday,
+        name: "swish"
+      }
+      const x2 = {
+        id: 2,
+        amount: 30000,
+        category: "salary",
+        date: this.dateToday,
+        name: "lön"  
+      }
+      const x3 = {
+        id: 3,
+        amount: 1500,
+        category: "food",
+        date: this.dateToday,
+        name: "dadlar" 
+      }
+      const x4 = {
+        id: 4,
+        amount: 3000,
+        category: "food",
+        date: this.dateToday,
+        name: "mandelmjölk" 
+      }
+      const x5 = {
+        id: 5,
+        amount: 100,
+        category: "transportation",
+        date: this.dateToday,
+        name: "buss" 
+      }
+      const x6 = {
+        id: 6,
+        amount: 25,
+        category: "transportation",
+        date: this.dateToday,
+        name: "bolt" 
+      }
+      const x7 = {
+        id: 7,
+        amount: 600,
+        category: "entertainment",
+        date: this.dateToday,
+        name: "nintendo coins" 
+      }
+      const x8 = {
+        id: 8,
+        amount: 200,
+        category: "entertainment",
+        date: this.dateToday,
+        name: "Chatgpt premium" 
+      }
+      const x9 = {
+        id: 9,
+        amount: 7000,
+        category: "housing",
+        date: this.dateToday,
+        name: "rent" 
+      }
+      const x10 = {
+        id: 10,
+        amount: 200,
+        category: "housing",
+        date: this.dateToday,
+        name: "bath salt" 
+      }
+      const x11 = {
+        id: 11,
+        amount: 400,
+        category: "miscellaneous",
+        date: this.dateToday,
+        name: "Brad Pitt full scale model" 
+      }
+      const x12 = {
+        id: 12,
+        amount: 300,
+        category: "miscellaneous",
+        date: this.dateToday,
+        name: "Angelina Jolie full scale model" 
+      }
+      const x13 = {
+        id: 13,
+        amount: 3000,
+        category: "stocks",
+        date: this.dateToday,
+        name: "SKF" 
+      }
+      const x14 = {
+        id: 14,
+        amount: 1500,
+        category: "stocks",
+        date: this.dateToday,
+        name: "Ehang" 
+      }
+    
+
+      this.sumString = ""
+      this.expenseCategory = null
+      if (this.salary !== null) {
+        this.salary -= expense.amount
+      }
+      this.expenses.push(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14)
+      this.removeJakobsButton = true;
+
+    }    
   },
 }).mount('#app');
