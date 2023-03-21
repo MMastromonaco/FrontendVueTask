@@ -101,20 +101,20 @@
 
         <h2>Transactions</h2>
         
-        <p v-for="expense in expenses" :key="expense.id">
-         {{expense.name}}: {{ expense.amount }} Kr ({{ expense.category }})
+        <p v-for="expense in currentMonthExpenses" :key="expense.id">
+          {{ expense.name }}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
         <h2>Expenses per Category</h2>
         <ul>
-          <li v-for="(amount, category) in expensesByCategory" :key="category">
-            {{ category }}: {{ amount }} <div :class="category"> </div>
+          <li v-for="(amount, category) in currentMonthExpensesByCategory" :key="category">
+            {{ category }}: {{ amount }} Kr: Color :<div :class="category"> </div>
           </li>
         </ul>
-        <canvas id=theCanvas ref="canvas"></canvas>
+        <canvas ref="canvas"></canvas>
         <h2>Category Percentages</h2>
         <ul>
-          <li v-for="(percentage, category) in categoryPercentages" :key="category">
-            {{ category }} : {{ percentage.toFixed(2) }} %
+          <li v-for="(percentage, category) in currentMonthCategoryPercentages" :key="category">
+            {{ category }} : {{ percentage.toFixed(2) }} % <div :class="category"> </div>
           </li>
         </ul>
       </div>

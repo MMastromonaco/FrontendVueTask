@@ -4,7 +4,14 @@ Vue.createApp({
     const savedExpenses = localStorage.getItem('expenses');
     if (savedExpenses) {
       this.expenses = JSON.parse(savedExpenses);
-      this.nextId = this.expenses[this.expenses.length - 1].id + 1;
+      if (this.expenses.length > 0) {
+        this.nextId = this.expenses[this.expenses.length - 1].id + 1;
+      } else {
+        this.nextId = 1;
+      }
+      this.drawPieChart();
+    } else {
+      this.nextId = 1;
     }
   },
   data() {
@@ -22,7 +29,6 @@ Vue.createApp({
       expenseId:"",
       amount: Number(this.sumString),
       expanded: false,
-      isInActive: false,
       removeJakobsButton: false,
       categories: [
         'food',
@@ -55,8 +61,7 @@ Vue.createApp({
             result[category] = 0;
           }
           result[category] += expense.amount;
-          //Detta kna åstakommas med watch
-          this.drawPieChart();
+          
 
         }
         return result;
@@ -95,6 +100,41 @@ Vue.createApp({
         return expenseDate.getMonth() == selectedMonth;
       });
     },
+    currentMonthExpenses() {
+      const currentMonth = new Date().getMonth() + 1;
+      return this.expenses.filter(expense => {
+        const expenseMonth = new Date(expense.date).getMonth() + 1;
+        return expenseMonth === currentMonth;
+      });
+    },
+    currentMonthExpensesByCategory() {
+      const expensesByCategory = {};
+      this.currentMonthExpenses.filter(expense => expense.category !== 'salary').forEach(expense => {
+        if (!expensesByCategory[expense.category]) {
+          expensesByCategory[expense.category] = 0;
+        }
+        expensesByCategory[expense.category] += expense.amount;
+      });
+    
+      return expensesByCategory;
+    },
+    
+    currentMonthCategoryPercentages() {
+      const filteredExpenses = this.currentMonthExpenses.filter(expense => expense.category !== 'salary');
+      const totalExpenses = filteredExpenses.reduce((total, expense) => total + expense.amount, 0);
+      const categoryPercentages = {};
+      filteredExpenses.forEach(expense => {
+        if (!categoryPercentages[expense.category]) {
+          categoryPercentages[expense.category] = 0;
+        }
+        categoryPercentages[expense.category] += expense.amount;
+      });
+      Object.keys(categoryPercentages).forEach(category => {
+        categoryPercentages[category] = (categoryPercentages[category] / totalExpenses) * 100;
+      });
+      return categoryPercentages;
+    },
+  
   },
   methods: {
     addNumber(number) {
@@ -120,6 +160,7 @@ Vue.createApp({
         this.salary -= expense.amount
       }
       this.expenses.push(expense)
+      this.drawPieChart();
       localStorage.setItem('expenses', JSON.stringify(this.expenses));
     },
     deleteTransaction(id) {
@@ -170,21 +211,26 @@ Vue.createApp({
         "miscellaneous": "#008080",
         "stocks": "#808000"
       };
-
+    
       context.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
-
+    
+      const currentMonthExpenses = this.expenses.filter(expense => {
+        const expenseDate = new Date(expense.date);
+        return expenseDate.getMonth() === new Date().getMonth();
+      });
+    
       const data = this.categories.map(category => {
-        return this.expenses.filter(expense => expense.category === category)
+        return currentMonthExpenses.filter(expense => expense.category === category)
           .reduce((total, expense) => total + expense.amount, 0);
       });
-
+    
       const total = data.reduce((a, b) => a + b, 0);
-
+    
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = Math.min(canvas.width, canvas.height) / 2;
       let currentAngle = 0;
-
+    
       data.forEach((value, index) => {
         const sliceAngle = (2 * Math.PI * value) / total;
         context.beginPath();
@@ -303,6 +349,7 @@ Vue.createApp({
       }
       this.expenses.push(x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14)
       this.removeJakobsButton = true;
+      this.drawPieChart();
 
     }    
   },
