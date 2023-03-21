@@ -66,19 +66,34 @@ header .expand-button{
 main{
     display: flex;
     flex-wrap: wrap;
-    padding: 40px;
+    padding: 3%;
 }
 
 .information{
     flex: 1;
+    border: 1px solid black;
+    background-color: antiquewhite;
+    margin: 5px;
+    padding: 2%;
+
 }
 
 .Input{
     flex: 2;
+    border: 1px solid black;
+    background-color: antiquewhite;
+    margin: 5px;
+    padding: 2%;
+
 }
 
 .transactions {
     flex: 1;
+    border: 1px solid black;
+    background-color: antiquewhite;
+    margin: 5px;
+    padding: 2%;
+
 }
 
 .buttonLayout button {
@@ -151,3 +166,54 @@ main{
     grid-area: m;
 }
 
+.food {
+    background-color:#FF0000 ;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.transportation {
+    background-color:#FFFF00 ;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+}
+
+.entertainment{
+    background-color:#008000 ;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+}
+
+.housing{
+    background-color: #800080;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+}
+
+.miscellaneous{
+    background-color:#008080 ;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+}
+
+.stocks {
+    background-color: #808000;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+}
+
+li{
+    display: flex;
+    padding: 5px;
+}
