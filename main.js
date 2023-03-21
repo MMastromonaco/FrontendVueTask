@@ -48,11 +48,13 @@ Vue.createApp({
     expensesByCategory() {
       return this.expenses.reduce((result, expense) => {
         const category = expense.category;
+        
         if (category !== 'salary') {
           if (!result[category]) {
             result[category] = 0;
           }
           result[category] += expense.amount;
+          //Detta kna åstakommas med watch
           this.drawPieChart();
 
         }
@@ -143,7 +145,6 @@ Vue.createApp({
       const context = canvas.getContext('2d');
       const colors = {
         "food": "#FF0000",
-        "rent": "#0000FF",
         "transportation": "#FFFF00",
         "entertainment": "#008000",
         "housing": "#800080",
@@ -174,8 +175,6 @@ Vue.createApp({
         context.fill();
         currentAngle += sliceAngle;
       });
-    },
-    
-    
+    },    
   },
 }).mount('#app');

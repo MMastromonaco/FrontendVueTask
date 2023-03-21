@@ -45,6 +45,7 @@
         </div>
       </div>
     </aside>
+    <button>Jakobs Knapp</button>
     <main :class="{ inActive: isInActive}">
 
       <div class="information">
@@ -56,11 +57,22 @@
         <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount"></label>
           <div class="inputDateAndType">
-            <label for="date-input">Select a date for the transaction:</label>
+            <label for="date-input">Select a date for the transaction: </label>
             <input type="date" id="date-input" v-model="dateToday"><br>
             <label for="objectName">Name: </label>
             <input id="objectName" type="text" v-model="objectName">
           </div>
+          <label for="expenseCategory">Category: </label>
+          <select id="expenseCategory" v-model="expenseCategory">
+            <option value="">Select a category </option>
+            <option value="salary">Salary</option>
+            <option value="food">Food</option>
+            <option value="transportation">Transportation</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="housing">Housing</option>
+            <option value="miscellaneous">Miscellaneous</option>
+            <option value="stocks">Stocks</option>
+          </select><br>
           
           <label for="expenseAmount">Amount:</label>
           <div class="buttonLayout">
@@ -79,38 +91,22 @@
             <button id="button-10" type="button" @click="addNumber('.')">.</button>
             <button id="button-11" type="button" @click="removeNumber()">❌</button>
           </div>
-          <label for="expenseCategory">Category:</label>
-          <select id="expenseCategory" v-model="expenseCategory">
-            <option value="">Select a category </option>
-            <option value="salary">Salary</option>
-            <option value="food">Food</option>
-            <option value="transportation">Transportation</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="housing">Housing</option>
-            <option value="miscellaneous">Miscellaneous</option>
-            <option value="stocks">Stocks</option>
-          </select>
 
-          <button type="submit">Add</button>
+          <button id="submitButton" type="submit">Add</button>
         </form>
       </div>
       <div class="transactions">
 
         <h2>Transactions</h2>
+        
         <p v-for="expense in expenses" :key="expense.id">
          {{expense.name}}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
-
-        <!-- <p v-for="expense in filterExpenses" :key="expense.id">
-            Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
-            <button @click="deleteTransaction(expense.id)">Delete</button>
-          </p> -->
-        
         <h2>Expenses per Category</h2>
         <canvas id=theCanvas ref="canvas"></canvas>
         <ul>
           <li v-for="(amount, category) in expensesByCategory" :key="category">
-            {{ category }}: {{ amount }}
+            {{ category }}: {{ amount }} <div :class="category"> </div>
           </li>
         </ul>
       </div>
