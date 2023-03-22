@@ -58,6 +58,36 @@ header .expand-button{
 
 }
 
+.asideCanvas{
+    display: grid;
+    grid-template:
+    "a b"  / 1fr 1fr;
+    padding: 10px;
+}
+
+@media screen and (max-width: 565px) {
+    .asideCanvas {
+      grid-template:
+        "a"
+        "b" / 1fr;
+        justify-items: center;
+    }
+  }
+
+.monthHistory p {
+    padding: 7px;
+}
+
+.asideCanvas ul {
+    grid-area: b;
+    margin-right: auto;
+}
+
+#historyCanvas {
+    grid-area: a;
+    margin-left: auto;
+}
+
 .expanding-div.active {
     width: 100%;
 }
