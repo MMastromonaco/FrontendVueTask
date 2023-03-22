@@ -17,7 +17,7 @@
 
     <header :class="{ inActive: isInActive}">
       <h1>Expenses Tracker</h1>
-      <button class="expand-button" @click="expandDiv">History</button>
+      <button class="expand-button" @click="handleButtonClick(expenseMonth)">History</button>
     </header>
 
     <aside>
@@ -25,7 +25,7 @@
         <button class="close-button" @click="closeDiv">X</button>
         <h2>Historical display of transactions</h2>
         <div class="monthHistory">
-          <select id="expenseMonth" v-model="expenseMonth">
+          <select id="expenseMonth" v-model="expenseMonth" @change="drawAsidePieChart(expenseMonth)">
             <option value="">Select a month</option>
             <option value="0">Jan</option>
             <option value="1">Feb</option>
@@ -42,9 +42,10 @@
           </select>
           <p v-for="expense in filterExpenses" :key="expense.id">
             Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
-            <button @click="deleteTransaction(expense.id)">Delete</button>
+            <button @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
           </p>
         </div>
+        <canvas ref="asideCanvas"></canvas>
       </div>
     </aside>
     <button :class="{removeJakobsButton}" id="jakobsKnapp" type="button" @click="jakobsKnapp()">Jakobs Knapp</button>
@@ -101,20 +102,20 @@
 
         <h2>Transactions</h2>
         
-        <p v-for="expense in expenses" :key="expense.id">
-         {{expense.name}}: {{ expense.amount }} Kr ({{ expense.category }})
+        <p v-for="expense in currentMonthExpenses" :key="expense.id">
+          {{ expense.name }}: {{ expense.amount }} Kr ({{ expense.category }})
         </p>
         <h2>Expenses per Category</h2>
         <ul>
-          <li v-for="(amount, category) in expensesByCategory" :key="category">
-            {{ category }}: {{ amount }} <div :class="category"> </div>
+          <li v-for="(amount, category) in currentMonthExpensesByCategory" :key="category">
+            {{ category }}: {{ amount }} Kr: Color :<div :class="category"> </div>
           </li>
         </ul>
-        <canvas id=theCanvas ref="canvas"></canvas>
+        <canvas ref="canvas"></canvas>
         <h2>Category Percentages</h2>
         <ul>
-          <li v-for="(percentage, category) in categoryPercentages" :key="category">
-            {{ category }} : {{ percentage.toFixed(2) }} %
+          <li v-for="(percentage, category) in currentMonthCategoryPercentages" :key="category">
+            {{ category }} : {{ percentage.toFixed(2) }} % <div :class="category"> </div>
           </li>
         </ul>
       </div>
