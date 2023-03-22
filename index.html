@@ -26,7 +26,7 @@
         <h2>Historical display of transactions</h2>
         <div class="monthHistory">
           <select id="expenseMonth" v-model="expenseMonth" @change="drawAsidePieChart(expenseMonth)">
-            <option value="">Select a month</option>
+            <option value="20">Select a month</option>
             <option value="0">Jan</option>
             <option value="1">Feb</option>
             <option value="2">Mar</option>
@@ -46,6 +46,7 @@
           </p>
         </div>
         <canvas ref="asideCanvas"></canvas>
+        
       </div>
     </aside>
     <button :class="{removeJakobsButton}" id="jakobsKnapp" type="button" @click="jakobsKnapp()">Jakobs Knapp</button>
