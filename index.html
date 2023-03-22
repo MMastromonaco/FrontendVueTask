@@ -42,7 +42,7 @@
           </select>
           <p v-for="expense in filterExpenses" :key="expense.id">
             Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
-            <button @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
+            <button id="deleteButton" @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
           </p>
         </div>
         <canvas ref="asideCanvas"></canvas>
