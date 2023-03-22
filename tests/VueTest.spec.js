@@ -26,18 +26,15 @@ test('delete a expense', async ({ page }) => {
   await page.goto('http://127.0.0.1:5500/');
 
   await Promise.all([
-    page.click('#expand-button'),
-    page.waitForNavigation()
+    page.click('.expand-button')
   ]);
 
   const deleteButton = await page.$('#delete-transaction-1')
   await deleteButton?.click();
 
-  await page.click('#confirm-delete-button');
+  // Submit the delete
+  await page.click('button[id="deleteButton"]');
 
   const transaction = await page.$('#transaction-1');
   expect(transaction).toBeNull();
-  
-  // Submit the delete
-  // await page.click('button[id="deleteButton"]');
 });
