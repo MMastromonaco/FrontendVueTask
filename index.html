@@ -39,11 +39,6 @@
             <option value="9">Okt</option>
             <option value="10">Nov</option>
             <option value="11">Dec</option>
-<<<<<<< HEAD
-          </select>
-          <p v-for="expense in filterExpenses" :key="expense.id">
-            Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
-=======
           </select><br>
           <div class="asideCanvas">
 
@@ -59,7 +54,6 @@
           <p class="historyTransaction" v-for="expense in filterExpenses" :key="expense.id">
             Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{
             expense.date }}
->>>>>>> 5d6c95cf699b3be84a95994963f761d8abe7c4c8
             <button id="deleteButton" @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
           </p>
         </div>
