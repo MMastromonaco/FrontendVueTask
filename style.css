@@ -72,6 +72,14 @@ header .expand-button{
         "b" / 1fr;
         justify-items: center;
     }
+    #historyCanvas{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .asideCanvas ul{
+        margin-left: auto;
+        margin-right: auto;
+    }
   }
 
 .monthHistory p {
@@ -205,6 +213,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 }
 
 .transportation {
@@ -212,6 +221,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -220,6 +230,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -228,6 +239,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -236,6 +248,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -244,6 +257,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 

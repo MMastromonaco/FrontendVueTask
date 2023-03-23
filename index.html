@@ -51,10 +51,10 @@
             </ul>
 
           </div>
-          <p v-for="expense in filterExpenses" :key="expense.id">
+          <p class="historyTransaction" v-for="expense in filterExpenses" :key="expense.id">
             Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{
             expense.date }}
-            <button @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
+            <button id="deleteButton" @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
           </p>
         </div>
       </div>
@@ -113,8 +113,8 @@
 
         <h2>Transactions this month</h2>
 
-        <p v-for="expense in currentMonthExpenses" :key="expense.id">
-          {{ expense.name }}: {{ expense.amount }} Kr ({{ expense.category }})
+        <p class="transactionThisMonth" v-for="expense in currentMonthExpenses" :key="expense.id">
+          {{ expense.name }}: {{ expense.amount }} Kr ({{ expense.category}})
         </p>
         <h2>Expenses per Category</h2>
         <ul>
