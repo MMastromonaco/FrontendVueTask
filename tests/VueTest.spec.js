@@ -79,7 +79,7 @@ test('Delete transaction', async ({ page }) => {
     await page.click('button[type="submit"]');
 
     //go to history
-    await page.click('.expand-button');
+    await page.click('.expandButton');
     //select the month
     const selectMonth = page.locator('#expenseMonth');
     await selectMonth.selectOption('Mar');
@@ -88,7 +88,7 @@ test('Delete transaction', async ({ page }) => {
     const lastDeleteButton = deleteButtons[1];
     await lastDeleteButton.click();
 
-    await page.click('.close-button')
+    await page.click('.closeButton')
 
     let tracker = await page.locator('#totalAmount')
     let trackerText = await tracker.textContent();

@@ -22,7 +22,7 @@ header {
     background-color: antiquewhite;
     
 }
-header .expand-button{
+header .expandButton{
     position: absolute;
     top: 0;
     right: 0;   
@@ -33,7 +33,7 @@ header .expand-button{
     display: none;
 }
 
-.expanding-div {
+.expandingDiv {
     position: absolute;
     right: 0;
     top: 0;
@@ -52,7 +52,7 @@ header .expand-button{
     background-color: #cccccc;
 }
 
-.expand-button {
+.expandButton {
     display: block;
     margin: 20px auto;
 
@@ -96,7 +96,7 @@ header .expand-button{
     margin-left: auto;
 }
 
-.expanding-div.active {
+.expandingDiv.active {
     width: 100%;
 }
 
