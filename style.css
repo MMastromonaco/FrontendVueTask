@@ -58,6 +58,44 @@ header .expand-button{
 
 }
 
+.asideCanvas{
+    display: grid;
+    grid-template:
+    "a b"  / 1fr 1fr;
+    padding: 10px;
+}
+
+@media screen and (max-width: 565px) {
+    .asideCanvas {
+      grid-template:
+        "a"
+        "b" / 1fr;
+        justify-items: center;
+    }
+    #historyCanvas{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .asideCanvas ul{
+        margin-left: auto;
+        margin-right: auto;
+    }
+  }
+
+.monthHistory p {
+    padding: 7px;
+}
+
+.asideCanvas ul {
+    grid-area: b;
+    margin-right: auto;
+}
+
+#historyCanvas {
+    grid-area: a;
+    margin-left: auto;
+}
+
 .expanding-div.active {
     width: 100%;
 }
@@ -175,6 +213,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 }
 
 .transportation {
@@ -182,6 +221,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -190,6 +230,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -198,6 +239,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -206,6 +248,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 
@@ -214,6 +257,7 @@ main{
     width: 15px;
     height: 15px;
     border-radius: 50%;
+    margin: 5px;
 
 }
 

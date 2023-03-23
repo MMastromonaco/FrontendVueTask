@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <title>Expenses Tracker</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="main.js" defer></script>
@@ -39,14 +39,24 @@
             <option value="9">Okt</option>
             <option value="10">Nov</option>
             <option value="11">Dec</option>
-          </select>
-          <p v-for="expense in filterExpenses" :key="expense.id">
-            Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{ expense.date }}
-            <button @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
+          </select><br>
+          <div class="asideCanvas">
+
+            <canvas id="historyCanvas" ref="asideCanvas"></canvas>
+
+            <ul>
+              <li v-for="expense in groupedExpenses" :key="expense.category">
+                {{ expense.category }}: {{ expense.amount }} Kr: <div :class="expense.category"> </div> ({{ expense.percentage }}%)
+              </li>
+            </ul>
+
+          </div>
+          <p class="historyTransaction" v-for="expense in filterExpenses" :key="expense.id">
+            Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{
+            expense.date }}
+            <button id="deleteButton" @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
           </p>
         </div>
-        <canvas ref="asideCanvas"></canvas>
-        
       </div>
     </aside>
     <button :class="{removeJakobsButton}" id="jakobsKnapp" type="button" @click="jakobsKnapp()">Jakobs Knapp</button>
@@ -77,7 +87,7 @@
             <option value="miscellaneous">Miscellaneous</option>
             <option value="stocks">Stocks</option>
           </select><br>
-          
+
           <label for="expenseAmount">Amount:</label>
           <div class="buttonLayout">
             <!-- Pattern säger att användaren endast får mata in dess värden innanför hakparantesen -->
@@ -101,10 +111,10 @@
       </div>
       <div class="transactions">
 
-        <h2>Transactions</h2>
-        
-        <p v-for="expense in currentMonthExpenses" :key="expense.id">
-          {{ expense.name }}: {{ expense.amount }} Kr ({{ expense.category }})
+        <h2>Transactions this month</h2>
+
+        <p class="transactionThisMonth" v-for="expense in currentMonthExpenses" :key="expense.id">
+          {{ expense.name }}: {{ expense.amount }} Kr ({{ expense.category}})
         </p>
         <h2>Expenses per Category</h2>
         <ul>
@@ -120,7 +130,7 @@
           </li>
         </ul>
       </div>
-      
+
 
   </div>
   </main>

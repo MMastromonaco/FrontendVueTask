@@ -52,40 +52,7 @@ Vue.createApp({
       });
       return total.toFixed(2);
     },
-    expensesByCategory() {
-      return this.expenses.reduce((result, expense) => {
-        const category = expense.category;
 
-        if (category !== 'salary') {
-          if (!result[category]) {
-            result[category] = 0;
-          }
-          result[category] += expense.amount;
-
-
-        }
-        return result;
-      },
-        {});
-    },
-    categoryPercentages() {
-      let totalAmount = this.expenses.filter(expense => expense.category != 'salary').reduce((total, expense) => {
-        return total + expense.amount;
-      }, 0);
-
-      let categoryAmounts = this.expenses.filter(expense => expense.category != 'salary').reduce((amounts, expense) => {
-        const { category, amount } = expense;
-        amounts[category] = (amounts[category] || 0) + amount;
-        return amounts;
-      }, {});
-
-      let percentages = {};
-      for (let category in categoryAmounts) {
-        percentages[category] = (categoryAmounts[category] / totalAmount) * 100;
-      }
-
-      return percentages;
-    },
     remainingAmount() {
       if (this.salary === null) {
         return null;
@@ -134,7 +101,29 @@ Vue.createApp({
       });
       return categoryPercentages;
     },
-
+    groupedExpenses() {
+    const grouped = {};
+    let totalAmount = 0;
+    this.filterExpenses.forEach(expense => {
+      if (expense.category === 'salary') {
+        return; // skip this expense
+      }
+      totalAmount += expense.amount;
+      if (!grouped[expense.category]) {
+        grouped[expense.category] = {
+          category: expense.category,
+          amount: expense.amount
+        };
+      } else {
+        grouped[expense.category].amount += expense.amount;
+      }
+    });
+    // add percentage to each category
+    Object.values(grouped).forEach(category => {
+      category.percentage = Math.round(category.amount / totalAmount * 100);
+    });
+    return Object.values(grouped);
+  }
   },
   methods: {
     addNumber(number) {
