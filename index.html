@@ -17,12 +17,12 @@
 
     <header :class="{ inActive: isInActive}">
       <h1>Expenses Tracker</h1>
-      <button class="expand-button" @click="handleButtonClick(expenseMonth)">History</button>
+      <button class="expandButton" @click="handleButtonClick(expenseMonth)">History</button>
     </header>
 
     <aside>
-      <div class="expanding-div" :class="{ 'expanded': expanded }">
-        <button class="close-button" @click="closeDiv">X</button>
+      <div class="expandingDiv" :class="{ 'expanded': expanded }">
+        <button class="closeButton" @click="closeDiv">X</button>
         <h2>Historical display of transactions</h2>
         <div class="monthHistory">
           <select id="expenseMonth" v-model="expenseMonth" @change="drawAsidePieChart(expenseMonth)">
@@ -77,8 +77,8 @@
         <form v-on:submit.prevent="addExpense">
           <label for="expenseAmount"></label>
           <div class="inputDateAndType">
-            <label for="date-input">Select a date for the transaction: </label>
-            <input type="date" id="date-input" v-model="dateToday"><br>
+            <label for="dateInput">Select a date for the transaction: </label>
+            <input type="date" id="dateInput" v-model="dateToday"><br>
             <label for="objectName">Name: </label>
             <input id="objectName" type="text" v-model="objectName">
           </div>
