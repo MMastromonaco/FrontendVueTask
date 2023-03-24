@@ -1,5 +1,4 @@
 Vue.createApp({
-  // Created crashade, mounted funkar, Förklara gärna JAKOB <3.
   mounted() {
     const savedExpenses = localStorage.getItem('expenses');
     if (savedExpenses) {
@@ -60,7 +59,6 @@ Vue.createApp({
       return this.salary - this.totalAmount
     },
     filterExpenses() {
-      // return this.expenses.filter(e => e.amount > 0);
       const selectedMonth = this.expenseMonth;
       return this.expenses.filter(e => {
         const expenseDate = new Date(e.date);
@@ -101,12 +99,14 @@ Vue.createApp({
       });
       return categoryPercentages;
     },
+    //Metoden nedanför gör samma sak som de två över fast till vårana aside. Detta då vi inte lyckades lista ut hur vi skulle bearbeta parametrarna,
+    //detta gör så att programmet blir en aning repetitivt men det fungerar som det ska.
     groupedExpenses() {
     const grouped = {};
     let totalAmount = 0;
     this.filterExpenses.forEach(expense => {
       if (expense.category === 'salary') {
-        return; // skip this expense
+        return;
       }
       totalAmount += expense.amount;
       if (!grouped[expense.category]) {
@@ -118,7 +118,6 @@ Vue.createApp({
         grouped[expense.category].amount += expense.amount;
       }
     });
-    // add percentage to each category
     Object.values(grouped).forEach(category => {
       category.percentage = Math.round(category.amount / totalAmount * 100);
     });
@@ -193,9 +192,10 @@ Vue.createApp({
       this.expanded = false;
       this.toggleInActive();
     },
-    toggleInActive() {
-      this.isInActive = !this.isInActive;
-    },
+    //Denna metoden används inte just nu, men vi valde att spara den för vi har en idé för framtiden.
+    // toggleInActive() {
+    //   this.isInActive = !this.isInActive;
+    // },
     drawPieChart() {
       const canvas = this.$refs.canvas;
       const context = canvas.getContext('2d');
@@ -221,12 +221,13 @@ Vue.createApp({
       });
 
       const total = data.reduce((a, b) => a + b, 0);
-
+      //Här nedanför räknar vi ut mittpunkten på canvas elementet
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = Math.min(canvas.width, canvas.height) / 2;
       let currentAngle = 0;
 
+      //Nedanför så målar vi ut varje bit av cirkeldiagramet, vi påbörjar nästa bit där den förra slutade.
       data.forEach((value, index) => {
         const sliceAngle = (2 * Math.PI * value) / total;
         context.beginPath();

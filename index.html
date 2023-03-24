@@ -14,7 +14,8 @@
 
 <body>
   <div id="app">
-
+    <!-- class (inactive:) användes först för att göra det omöjligt för att användaren att kunna klicka på något annat utanför asiden, Vi strukturerade om asiden så att den täckte upp
+    100% av sidan så den är onödig. -->
     <header :class="{ inActive: isInActive}">
       <h1>Expenses Tracker</h1>
       <button class="expandButton" @click="handleButtonClick(expenseMonth)">History</button>
@@ -41,24 +42,24 @@
             <option value="11">Dec</option>
           </select><br>
           <div class="asideCanvas">
-
             <canvas id="historyCanvas" ref="asideCanvas"></canvas>
-
             <ul>
               <li v-for="expense in groupedExpenses" :key="expense.category">
-                {{ expense.category }}: {{ expense.amount }} Kr: <div :class="expense.category"> </div> ({{ expense.percentage }}%)
+                {{ expense.category }}: {{ expense.amount }} Kr: <div :class="expense.category"> </div> ({{
+                expense.percentage }}%)
               </li>
             </ul>
-
           </div>
           <p class="historyTransaction" v-for="expense in filterExpenses" :key="expense.id">
             Name: {{ expense.name }}, Amount: {{ expense.amount }} kr, Category: {{ expense.category }}, Date: {{
             expense.date }}
-            <button id="deleteButton" @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
+            <button id="deleteButton"
+              @click="deleteTransaction(expense.id),this.drawAsidePieChart(expenseMonth);">Delete</button>
           </p>
         </div>
       </div>
     </aside>
+    <!-- Knappen nedanför skulle ju inte finnas i en riktig version av programmet, därav ligger den lite själv mitt emellan allt. -->
     <button :class="{removeJakobsButton}" id="jakobsKnapp" type="button" @click="jakobsKnapp()">Jakobs Knapp</button>
     <main :class="{ inActive: isInActive}">
 
@@ -134,8 +135,6 @@
 
   </div>
   </main>
-  <footer>
-  </footer>
 </body>
 
 </html>

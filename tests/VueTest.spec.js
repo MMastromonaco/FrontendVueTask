@@ -1,12 +1,6 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-const new_Expense = {
-  amount: 1500,
-  category: "stocks",
-  name: "Ehang"
-}
-
 test('Add a expense', async ({ page }) => {
   await page.goto('http://127.0.0.1:5500/');
 
