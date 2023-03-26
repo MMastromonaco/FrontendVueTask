@@ -102,27 +102,27 @@ Vue.createApp({
     //Metoden nedanför gör samma sak som de två över fast till vårana aside. Detta då vi inte lyckades lista ut hur vi skulle bearbeta parametrarna,
     //detta gör så att programmet blir en aning repetitivt men det fungerar som det ska.
     groupedExpenses() {
-    const grouped = {};
-    let totalAmount = 0;
-    this.filterExpenses.forEach(expense => {
-      if (expense.category === 'salary') {
-        return;
-      }
-      totalAmount += expense.amount;
-      if (!grouped[expense.category]) {
-        grouped[expense.category] = {
-          category: expense.category,
-          amount: expense.amount
-        };
-      } else {
-        grouped[expense.category].amount += expense.amount;
-      }
-    });
-    Object.values(grouped).forEach(category => {
-      category.percentage = Math.round(category.amount / totalAmount * 100);
-    });
-    return Object.values(grouped);
-  }
+      const grouped = {};
+      let totalAmount = 0;
+      this.filterExpenses.forEach(expense => {
+        if (expense.category === 'salary') {
+          return;
+        }
+        totalAmount += expense.amount;
+        if (!grouped[expense.category]) {
+          grouped[expense.category] = {
+            category: expense.category,
+            amount: expense.amount
+          };
+        } else {
+          grouped[expense.category].amount += expense.amount;
+        }
+      });
+      Object.values(grouped).forEach(category => {
+        category.percentage = Math.round(category.amount / totalAmount * 100);
+      });
+      return Object.values(grouped);
+    }
   },
   methods: {
     addNumber(number) {
@@ -178,9 +178,11 @@ Vue.createApp({
     },
     dailyAmount(date, sumString) {
       const today = new Date();
-      const targetDay = date.getDate();
-      const daysLeft = targetDay - today.getDate();
-      const amount = parseInt(sumString) / daysLeft
+      const targetMonth = today.getMonth() <= 10 ? today.getMonth() + 2 : 1; // get next month, accounting for December
+      const targetYear = targetMonth === 1 ? today.getFullYear() + 1 : today.getFullYear(); // get next year if next month is January
+      const targetDate = new Date(`${targetYear}-${targetMonth}-25`); // set target date to the 25th of the next month
+      const daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24)); // calculate days left until next payday
+      const amount = parseInt(sumString) / daysLeft;
       return amount.toFixed(2);
     },
     expandDiv() {
